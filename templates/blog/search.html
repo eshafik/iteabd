@@ -1,0 +1,52 @@
+{% extends "base/base.html" %}
+{% block title %}Search{% endblock title %}
+{% block content %}
+<div class="col-md">
+  <h2>Query for "{{query}}":</h2>
+</div>
+<br>
+<div class="row">
+      {% for result in results  %}
+      <div class="col-sm-2">
+            <br>
+      {% if not result.get_absolute_url %}
+      <div class="col-md-12">
+        <h4><a class="text-dark" href="{{result.profile.get_absolute_url}}">{{ result.first_name }} {{result.last_name}}</a></h4>
+      <p><a class="btn btn-secondary" href="{{result.profile.get_absolute_url}}" role="button">View details &raquo;</a></p>
+      </div>
+
+      {% else %}
+        {% if request.user.profile.itea_status == "executive" or request.user == result.author %}
+        <div class="col-md-12">
+              <h4><a class="text-dark" href="{{result.get_absolute_url}}">{{ result.title }}</a></h4>
+              <p class="card-text">{{ result.body|safe|truncatewords:5|linebreaks }}</p>
+            <p><a class="btn btn-secondary" href="{{result.get_absolute_url}}" role="button">View details &raquo;</a></p>
+        </div>
+        {% elif request.user.profile.itea_status == "member" %}
+            {% if result.show_to == "member" or result.show_to == "public" %}
+            <div class="col-md-12">
+              <h4><a class="text-dark" href="{{result.get_absolute_url}}">{{ result.title }}</a></h4>
+              <p class="card-text">{{ result.body|safe|truncatewords:5|linebreaks }}</p>
+            <p><a class="btn btn-secondary" href="{{result.get_absolute_url}}" role="button">View details &raquo;</a></p>
+            </div>
+            {%endif%}
+        {% elif not request.user.is_authenticated %}
+          {% if result.show_to == "public" %}
+          <div class="col-md-12">
+            <h4><a class="text-dark" href="{{result.get_absolute_url}}">{{ result.title }}</a></h4>
+            <p class="card-text">{{ result.body|safe|truncatewords:5|linebreaks }}</p>
+          <p><a class="btn btn-secondary" href="{{result.get_absolute_url}}" role="button">View details &raquo;</a></p>
+          </div>
+          {%endif%}
+        {%endif%}
+      {%endif%}
+        <br><br><br>
+        </div>
+        {% empty %}
+        <div class="col-md">
+          <p> <h1>There are no similar posts.</h1> </p>
+        </div>
+        {%endfor%}
+</div>
+
+{% endblock content %}

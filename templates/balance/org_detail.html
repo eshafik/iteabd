@@ -1,0 +1,36 @@
+{% extends 'base/base.html' %}
+
+{% block titile %}
+  Ogranization Details Detials
+{% endblock titile %}
+
+{% block content %}
+
+<div class="jumbotron">
+        <div class="container">
+          <div class="row">
+              <div class="col-sm">
+                <h3 style="color:red;"><u>Organizational Status:</u></h3><br>
+                <p><b>Invest Expense: </b> {{invest_expense.invest_expense__sum}} Tk.</p><br>
+                <p><b>Invest Income:</b> {{invest_income.invest_income__sum}} Tk.</p><br>
+                <p><b>Extra Expense:</b> {{extra_expense.extra_expense__sum}} Tk.</p><br>
+                <p><b>Extra Income:</b> {{extra_income.extra_income__sum}} Tk.</p><br>
+                <p><b>Members' Equity(Monthly):</b> {{equity_monthly.balance__sum}} Tk.</p><br>
+                <p><b>Members' Equity(Additional):</b> {{equity_additional.additional__sum}} Tk.</p><br>
+                <p><b>Investors' Equity:</b> {{invest.balance__sum}}  Tk.</p><br>
+                <!-- <p><b>Details: </b>{{org_details.investment_details|safe}}</p><br> -->
+                <p><b>Last Updated: </b> {{updated}}</p><br><br>
+                
+              </div>
+          </div>
+        </div>
+    
+      
+    </div>
+
+{% endblock %}
+
+
+
+
+

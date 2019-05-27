@@ -1,0 +1,16 @@
+{% extends "base/base.html" %}
+
+{% block title %}Logged Out{% endblock title %}
+{% block content %}
+<div class="row bg">
+  <div class="row" style="padding-left: 10%;color: chartreuse">
+      <h1>Logged out</h1><br><br><br><br><br><br>
+  </div>
+  <div class="row" style="padding:150px;">
+      <h4 style="color:coral;">You have been successfully logged out. You can <a href="{% url 'login' %}"><h1 style="color:greenyellow">Login again</h1></a>.</h4>
+  </div>
+    
+    
+</div>
+  
+{% endblock content %}

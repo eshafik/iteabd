@@ -1,0 +1,48 @@
+html{
+	height: 100%;
+}
+body{
+/*
+	background: url(../images/background/knit.jpg);
+	background-size: cover;
+	background-position: center;
+*/
+	background: #FFFFFF;
+	padding: 20px;
+}
+
+.navbar-wrapper{
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 10;
+}
+.navbar-light .navbar-brand{
+	font-family: 'Germania One', cursive;
+}
+
+
+.navbar-nav{
+	font-family: 'Lato', sans-serif;
+	color: black;
+}
+.form-inline{
+	font-family: 'Lato', sans-serif;
+}
+.nav-link:hover{
+	background: aqua;
+	color: black;
+}
+.navbar-wrapper > .container{
+	padding-left: 0;
+	padding: 0;
+}
+.navbar-wrapper .navbar .container{
+	width: auto;
+}
+
+footer{
+	margin: 20px 100px;
+	margin-top: 60px;
+}

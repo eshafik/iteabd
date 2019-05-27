@@ -1,0 +1,39 @@
+{% extends "base/base.html" %}
+{% load index %}
+
+{% block title %}
+Investor Transaction
+{% endblock title %}
+
+
+{% block content %}
+                    
+    <div class="card-header">
+            <i class="fa fa-align-justify"></i> All Investors' Transactions
+    </div>
+    <div class="card-block">
+        <table class="table table-bordered table-striped table-sm text-center">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Date-Time</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for invest in all_invest %}
+            <tr>
+                <td class="text-center">
+                    <a href="#" class="btn ">{{invest.name }}</a>
+                </td>
+                <td>{{invest.balance}}</td>
+                
+            <td><a href="#" class="test-success"><span class="btn text-dark">{{invest.updated}}</span></a></td>
+            </tr>
+            {% endfor %}
+
+{% endblock content %}
+    
+
+    

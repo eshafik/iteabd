@@ -1,0 +1,42 @@
+.content{
+	background: #e9ecef;
+	padding: 0;
+	padding-left: 100px;
+	margin-right: 0;
+	align-content: center;
+}
+
+.micky{
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.righty{
+	text-align: right;
+}
+.lefty{
+	text-align: left;
+}
+.center{
+	text-align: center;
+}
+.my-image{
+	padding-top: 10px;
+}
+.content-image{
+	border-radius: 50px;
+	align-content: space-between;
+	margin-left: 40px;
+}
+.para-img{
+	height: 160px;
+    padding: 0;
+    margin: 0;
+/*	margin-right: 2%;*/
+	text-align: center;
+	color: #b4e200;
+	font-family: 'ZCOOL XiaoWei', serif;
+	padding-top: 10px;
+}
+.cyan{
+	color: cyan;
+}

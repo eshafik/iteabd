@@ -1,0 +1,49 @@
+{% load index %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <h1>Transaction Data</h1>
+    <table class="table table-bordered table-striped table-sm text-center">
+            <thead>
+            <tr>
+                <th>Member's Name</th>
+                <th>Monthly</th>
+                <th>Additional</th>
+                <th>Due Months</th>
+                <th>Date-Time</th>
+                <th>Payment Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for members in users %}
+            
+            {% for member in members %}
+            <tr>
+                <td>{{member.user.get_full_name}}</td>
+                <td class="text-center">
+                    <a href="#" class="btn ">{{member.balance }}</a>
+                </td>
+                <td>{{member.additional}}</td>
+                <td>{{member.due_month}}</td>
+                
+            <td><a href="#" class="test-success"><span class="btn text-dark">{{member.updated}}</span></a></td>
+                <td>{{member.payment_details}}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td>Total: {{amounts|index:forloop.counter0}} </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><p>------------------------------------</p></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+</body>
+</html>

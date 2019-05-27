@@ -1,0 +1,59 @@
+{% extends "base/base.html" %}
+{% load index %}
+
+{% block title %}
+Transaction Data
+{% endblock title %}
+
+
+{% block content %}
+                    
+                    <div class="card-header">
+                            <i class="fa fa-align-justify"></i> Transactions Details
+                    </div>
+                    <div class="card-block">
+                        <table class="table table-bordered table-striped table-sm text-center">
+                            <thead>
+                            <tr>
+                                <th>Member's Name</th>
+                                <th>Monthly</th>
+                                <th>Additional</th>
+                                <th>Due Months</th>
+                                <th>Date-Time</th>
+                                <th>Payment Details</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for members in users %}
+                            
+                            {% for member in members %}
+                            <tr>
+                                <td>{{member.user.get_full_name}}</td>
+                                <td class="text-center">
+                                    <a href="#" class="btn ">{{member.balance }}</a>
+                                </td>
+                                <td>{{member.additional}}</td>
+                                <td>{{member.due_month}}</td>
+                                
+                            <td><a href="#" class="test-success"><span class="btn text-dark">{{member.updated}}</span></a></td>
+                                <td>{{member.payment_details}}</td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <td></td>
+                                <td>Total: {{amounts|index:forloop.counter0}} </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><p>------------------------------------</p></td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <h1><a href="{%url 'balance:get_ransaction'%}">Get Pdf</a></h1>
+             
+{% endblock content %}
+    
+
+    

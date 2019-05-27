@@ -1,0 +1,104 @@
+{% extends 'base/base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="bg">
+<div class="row">
+<div class="col-md-1"></div>
+<div class="col-md-10">
+    <div class="card">
+        <div class="card-header">
+            <strong>Edit Profile</strong>
+        </div>
+        <form action="" method="post" enctype="multipart/form-data" class="form-horizontal" style="padding:10px;padding-left:30px;">
+            {% csrf_token %}
+            <div class="card-block">
+                {# if user form show it here #}
+                {% if user_form %}
+                    {% for field in user_form.visible_fields %}
+                        <div class="form-group row">
+                            <label for="{{ field.auto_id }}" class="col-md-3 col-form-label">{{ field.label_tag }}</label>
+                            {% if form.is_bound %}
+                                {% if field.errors %}
+                                        {% render_field field class="form-control is-invalid" %}
+                                    {% for error in field.errors %}
+                                        <div class="invalid-feedback">
+                                            {{ error }}
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                        {% render_field field class="form-control is-valid" %}
+                                {% endif %}
+                            {% else %}
+                                <div class="col-md-6">
+                                    {% render_field field class="form-control" %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {{ profile_form.errors }}
+                {% for field in profile_form.visible_fields %}
+                    <div class="form-group row">
+                        <label for="{{ field.auto_id }}" class="col-md-3 col-form-label">{{ field.label_tag }}</label>
+                        {% if form.is_bound %}
+                            {% if field.errors %}
+                                    {% render_field field class="form-control is-invalid" %}
+                                {% for error in field.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                    {% render_field field class="form-control is-valid" %}
+                            {% endif %}
+
+                        {% else %}
+                            {% if forloop.counter == 2 or forloop.counter == 6 or forloop.counter == 7  %}
+                                <div class="col-md-6">
+                                {% render_field field class="editable medium-editor-textarea " %}
+                                </div>
+                            {% else %}
+                                <div class="col-md-6">
+                                    {% render_field field class="form-control " %}
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-sm btn-primary"><i
+                    class="fa fa-dot-circle-o"></i> <a href="{% url 'password_change' %}" class="btn btn-sm btn-primary">Change Password</a>
+                </button>
+
+                <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+                <button type="submit" name="save-event" class="btn btn-sm btn-primary"><i
+                    class="fa fa-dot-circle-o"></i> Save
+            </button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+<!--/.row-->
+<script> var editor = new MediumEditor('.editable'); </script>
+        
+</div>
+{% endblock %}
+
+
+
+{% comment %} {% extends "base/base.html" %}
+
+{% block title %}Edit your profile{% endblock title %}
+
+{% block content %}
+  <h1>Edit your account</h1>
+  <form action="." method='POST' enctype="multipart/form-data">
+    {{user_form.as_p}}
+    {{profile_form.as_p}}
+    {% csrf_token %}
+    <p><input type="submit" value="Save changes"></p>
+</form>
+{% endblock content %} {% endcomment %}

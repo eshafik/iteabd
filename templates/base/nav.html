@@ -1,0 +1,158 @@
+{% load static %}
+<div class="navbar-wrapper">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">ITEA</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto center">
+          <li class="nav-item active">
+            <a class="nav-link" href="{%url 'blog:post_list'%}">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>          
+          {% if request.user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              My Blog
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{%url 'blog:create_post'%}">Create New Post</a>
+              <a class="dropdown-item" href="{%url 'blog:my_published_post' %}">My posts</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'blog:draft_list'%}">Draft</a>
+            </div>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'all_members'%}">Members </a>
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Transaction
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% if request.user.profile.finance %}
+              <a class="dropdown-item" href="{% url 'balance:active_members'%}">Add Balance to Members</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{%url 'balance:org_edit'%}">Add Balance to Org</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{%url 'balance:investor_form'%}">Add Investor Balance</a>
+              {% endif %}
+            {% if request.user.profile.itea_status == "executive" %}
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'balance:transaction'%}">See Members' Transaction</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'balance:org_transaction'%}">See Organization Transaction</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'balance:investor_trans'%}">See Investors' Transaction</a>
+              {% endif %}
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{request.user.username}}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{%url 'profile_details' username=request.user %}">My Profile</a>
+              <a class="dropdown-item" href="{%url 'edit' %}">Edit Profile Info</a>
+              <a class="dropdown-item" href="{%url 'balance:my_transaction' %}">My Transactions</a>
+              
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{%url 'balance:org_detail' %}">Organization Details</a>
+              
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'logout'%}">Log Out</a>
+            </div>
+          </li>
+
+          {% else %}
+          <li class="nav-item ">
+            <a class="nav-link" href="{%url 'login'%}">Log In </a>
+          </li>
+          {% endif %}
+<!--
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          </li>
+-->
+        </ul>
+        <form action="/blog/search/" method="GET" class="form-inline my-2 my-lg-0">
+          <input name="search_box" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+   </div>  
+{% comment %} {% load widget_tweaks %}
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark justify-content-end">
+    <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+    <ul class="navbar-nav  ">
+        {% if not request.user.is_authenticated %}
+        <li class="nav-item">
+            <a class="navbar-brand" href="{%url 'blog:post_list'%}">Blog Posts</a>
+        </li>
+        {%endif%}
+        {% if request.user.is_authenticated %}
+         <!--Blog Dropdwon--> 
+         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle navbar-brand" href="#" id="navbardrop" data-toggle="dropdown">
+            Blog
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item " href="{%url 'blog:post_list'%}">Blog Posts</a>
+            <a class="dropdown-item" href="{%url 'blog:create_post'%}">Create Post</a>
+            <a class="dropdown-item" href="{% url 'blog:draft_list'%}">Draft</a>
+          </div>
+        </li>
+        <li class="nav-item">
+            <a class="navbar-brand" href="{% url 'all_members'%}">Members</a>
+        </li>
+
+        <!-- My Profile Dropdown -->
+        <li class="nav-item dropdown ">
+          <a class="nav-link dropdown-toggle navbar-brand" href="#" id="navbardrop" data-toggle="dropdown">
+            My Profile
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item " href="{%url 'profile_details' username=request.user %}">My Profile</a>
+            <a class="dropdown-item" href="{%url 'edit' %}">Edit Profile Info</a>
+            <a class="dropdown-item" href="{%url 'balance:org_detail' %}">See Organization Details</a>
+
+            {% if request.user.profile.itea_status == "executive" %}
+            <a class="dropdown-item" href="{%url 'blog:create_post'%}">Edit Organization Status</a> 
+            {% endif %}
+            {% if request.user.profile.finance %}
+            <a class="dropdown-item" href="{% url 'balance:active_members'%}">Add Balance</a>
+            {% endif %}
+
+          </div>
+        </li>
+        <!--LogOut Dropdown-->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+            {{request.user.username}}
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item " href="{% url 'logout'%}">Log Out</a>
+          </div>
+        </li>
+        {% else %}
+            <a class="navbar-brand" href="{%url 'login'%}">Log-In</a>
+            {% endif %}
+        <li class="nav-item justify-content-right">
+            <form  action="/blog/search/" method="GET" class="form-inline">
+                <input  id="search_box" type="text" name="search_box"  placeholder="Search..." >
+              <button class="btn btn-success" type="submit">Search</button>
+            </form> 
+          </li>
+  
+      </ul>
+</nav>
+ {% endcomment %}

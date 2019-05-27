@@ -1,0 +1,29 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+{% load widget_tweaks %}
+  <head>
+    {% include 'base/header.html' %}
+    <title>{% block title %}{% endblock title %}</title>
+  </head>
+  <body>
+
+    {% include 'base/nav.html' %}
+    {% if messages %}
+    <ul class="messages alert alert-info" role="alert">
+      {% for message in messages  %}
+        <li class={{message.tags}}>
+          {{message|safe}}
+          <a href="#" class="close">x</a>
+        </li>
+      {% endfor %}
+    </ul>
+      
+    {% endif %}
+   {% block content %}
+   {% endblock content %} 
+
+  {% include 'base/js.html' %}
+
+  </body>
+</html>

@@ -1,0 +1,54 @@
+{% extends "base/base.html" %}
+{% load index %}
+
+{% block title %}
+Organization's Transaction Data
+{% endblock title %}
+
+
+{% block content %}
+                    
+                    <div class="card-header">
+                            <i class="fa fa-align-justify"></i> Transactions Details
+                    </div>
+                    <div class="card-block">
+                        <table class="table table-bordered table-striped table-sm text-center">
+                            <thead>
+                            <tr>
+                                <th>Invest Expense</th>
+                                <th>Invest Income</th>
+                                <th>Extra Expense</th>
+                                <th>Extra Income</th>
+                                <th>Date-Time: </th>
+                                <th>Details</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            
+                            {% for org in org_trans %}
+                            <tr>
+                                <td>{{org.invest_expense}}</td>
+                                <td class="text-center">
+                                    <a href="#" class="btn ">{{org.invest_income }}</a>
+                                </td>
+                                <td>{{org.extra_expense}}</td>
+                                <td>{{org.extra_income}}</td>
+                                
+                            <td><a href="#" class="test-success"><span class="btn text-dark">{{org.updated}}</span></a></td>
+                                <td>{{org.investment_details}}</td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <td>Total:{{invest_expense.invest_expense__sum}}</td>
+                                <td>Total:{{invest_income.invest_income__sum}}</td>
+                                <td>Total:{{extra_expense.extra_expense__sum}}</td>
+                                <td>Total:{{extra_income.extra_income__sum}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+             
+{% endblock content %}
+    
+
+    

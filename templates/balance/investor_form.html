@@ -1,0 +1,57 @@
+{% extends "base/base.html" %}
+{% load widget_tweaks %}
+{% block title %}
+Investors' Form
+{% endblock title %}
+
+{% block content %}
+
+<div class="bg">
+<div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3><strong>Add the investor's amount</strong></h3>
+                </div>
+                <form action="" method="POST" class="form-horizontal">
+                    {% csrf_token %}
+                    <div class="card-block" style="padding:10px">
+                        {% for field in investor_form.visible_fields %}
+                            <div class="form-group row" style="padding:20px;">
+                                <label for="{{ field.auto_id }}" class="col-md-3 col-form-label">{{ field.label_tag }}</label>
+                                {% if form.is_bound %}
+                                    {% if field.errors %}
+                                            {% render_field field class="form-control is-invalid" %}
+                                        {% for error in field.errors %}
+                                            <div class="invalid-feedback">
+                                                {{ error }}
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                            {% render_field field class="form-control is-valid" %}
+                                    {% endif %}
+                                {% else %}
+                                    <div class="col-md-6">
+                                        {% render_field field class="form-control" %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+    
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" name="save-event" class="btn btn-sm btn-primary"><i
+                                class="fa fa-dot-circle-o"></i> SUBMIT
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+    <!--/.row-->
+    
+</div>
+
+{% endblock content %}

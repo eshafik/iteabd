@@ -1,0 +1,48 @@
+{% extends "base/base.html" %}
+
+{% block title %}
+  Member List
+{% endblock title %}
+
+{% block content %}
+<div class="bg">
+<h1 class="center" style="color:cyan;">Executive Members</h1>
+		<div class="container team">
+				<div class="row">
+					{% for member in members %}
+					{% if member.itea_status == "executive" %}
+					<div class="col-lg-3">
+						{% if member.photo %}
+						<img src="{{member.user.profile.photo.url}}" alt="" class="rounded-circle animated shake" width="140px" height="140px">
+						{% endif %}
+						<h3>{{member.user.get_full_name|default:member.user.username}}</h3>
+						<p>{{member.itea_status}}</p>
+						<p><a href="{{member.get_absolute_url}}" class="btn btn-primary">See Details</a></p>
+					</div>
+					{% endif %}
+					{% endfor %}
+
+				</div>
+			</div>
+<h1 class="center" style="color:cyan;padding-top: 30px;">General Members</h1>
+	<div class="container team">
+		<div class="row">
+			{% for member in members %}
+			{% if member.itea_status == "member" %}
+			<div class="col-lg-3">
+				{% if member.photo %}
+				<img src="{{member.user.profile.photo.url}}" alt="" class="rounded-circle animated shake" width="140px" height="140px">
+				{% endif %}
+				<h3>{{member.user.get_full_name|default:member.user.username}}</h3>
+				<p>{{member.itea_status}}</p>
+				<p><a href="{{member.get_absolute_url}}" class="btn btn-primary">See Details</a></p>
+			</div>
+			{% endif %}
+			{% endfor %}
+
+		</div>
+	</div>
+</div>
+
+  
+{% endblock content %}

@@ -1,0 +1,61 @@
+{% extends 'base/base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Edit Organization Details</strong>
+                </div>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="card-block">
+                        {# if user form show it here #}
+                        {% if org_form %}
+                            {% for field in org_form.visible_fields %}
+                                <div class="form-group row">
+                                    <label for="{{ field.auto_id }}" class="col-md-3 col-form-label">{{ field.label_tag }}</label>
+                                    {% if post_form.is_bound %}
+                                        {% if field.errors %}
+                                             {% render_field field class="form-control is-invalid" %}
+                                            {% for error in field.errors %}
+                                                <div class="invalid-feedback">
+                                                    {{ error }}
+                                                </div>
+                                            {% endfor %}
+                                        {% else %}
+                                                {% render_field field class="form-control is-valid" %}
+                                        {% endif %}
+                                    {% else %}
+                                        {% if forloop.counter == 4 %}
+                                        <div class="col-md-6">
+                                        {% render_field field class="editable medium-editor-textarea " %}
+                                        </div>
+                                        {% else %}
+                                        <div class="col-md-6">
+                                            {% render_field field class="form-control " %}
+                                        </div>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" name="save-event" class="btn btn-sm btn-primary"><i
+                                class="fa fa-dot-circle-o"></i> Post
+                        </button>
+                        <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!--/.row-->
+    <script> var editor = new MediumEditor('.editable'); </script>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+  Profile Details
+{% endblock title %}
+
+{% block content %}
+<div class="bg">
+    <div>
+        <div class="container">
+          <div class="row">
+              <div class="col-md-4 jumbotron">
+                  {% if user.profile.photo %}
+                  <p style="text-align:center">
+                        <img src="{{user.profile.photo.url}}" class="rounded-circle" align="middle" alt="This is" style="width:213px;height:231px;">
+                </p>
+                <h3 class="text-center">{{user.get_full_name}}</h3>
+                    
+                  {% endif %}
+              </div>
+              <div class="col-md-8 jumbotron">
+                  <h3 style="color:red;"><u>Personal Info:</u></h3>
+                  <p><b>Full Name: </b>{{user.get_full_name}}</p>
+                  <p><b>E-mail: </b>{{user.email}}</p>
+                  <p><b>Mobile: </b>{{user.profile.mobile}}</p>
+                  <p><b>Current Status: </b>{{user.profile.current_status}}</p>
+                  <p><b>Status Details: </b>{{user.profile.status_details|safe}}</p>
+                  <p><b>Position in ITEA: </b>{{user.profile.itea_status}}</p>
+                  <p><b>Current Address: </b>{{user.profile.current_address|safe}}</p>
+                  <p><b>Permanent Address: </b>{{user.profile.permanent_address|safe}}</p>
+                  <p><b>Balance: </b>{{monthly_balance}}</p>
+                  <p><b>Additional: </b>{{additional_balance}}</p>
+                  <p><b>Unpaid Months: </b>{{due_month}}</p>
+
+                  <p><b>Updated: </b>{{updated}}</p>
+              </div>
+          </div>
+        </div>
+    
+      
+    </div>
+    
+    
+</div>
+{% endblock content %}
